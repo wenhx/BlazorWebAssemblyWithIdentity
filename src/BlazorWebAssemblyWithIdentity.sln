@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebAssemblyWithIdentity.Server", "Server\BlazorWebAssemblyWithIdentity.Server.csproj", "{9B07C839-5891-46AE-A157-824141FE7984}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssemblyWithIdentity.Server", "Server\BlazorWebAssemblyWithIdentity.Server.csproj", "{9B07C839-5891-46AE-A157-824141FE7984}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebAssemblyWithIdentity.Client", "Client\BlazorWebAssemblyWithIdentity.Client.csproj", "{56812275-7811-48D2-93F3-71311AEE6E7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssemblyWithIdentity.Client", "Client\BlazorWebAssemblyWithIdentity.Client.csproj", "{56812275-7811-48D2-93F3-71311AEE6E7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebAssemblyWithIdentity.Shared", "Shared\BlazorWebAssemblyWithIdentity.Shared.csproj", "{4E3CF5D7-FFC6-49CE-B730-45E3D5E83B9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssemblyWithIdentity.Shared", "Shared\BlazorWebAssemblyWithIdentity.Shared.csproj", "{4E3CF5D7-FFC6-49CE-B730-45E3D5E83B9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
