@@ -1,8 +1,83 @@
 ﻿@page "/login"
-@layout AnonymousLayout
+@layout LoginLayout
 
-<h3>Login Page</h3>
+<PageTitle>Login</PageTitle>
+
+<h1 class="text-center">
+    Blazor Web Assembly with Identity Sample
+</h1>
+
+<div class="container mt-md-5">
+    <div class="row justify-content-md-center">
+        <div class="col-sm-6">
+            @if (From == "register")
+            {
+                <div class="alert alert-primary" role="alert">
+                    Successfully registered, please use your registration information to log in.
+                </div>
+            }
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="h2 text-center">Login</h1>
+                </div>
+                <div class="card-body">
+                    <EditForm class="form-signin" OnValidSubmit="OnSubmit" Model="loginModel">
+                        <DataAnnotationsValidator />
+
+                        <div class="form-floating mb-3">
+                            <InputText id="inputUsername" class="form-control" @bind-Value="loginModel.UserName" autofocus placeholder="Username" />
+                            <label for="inputUsername">User Name</label>
+                            <ValidationMessage For="@(() => loginModel.UserName)" />
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <InputText type="password" id="inputPassword" class="form-control" placeholder="Password" @bind-Value="loginModel.Password" />
+                            <label for="inputPassword">Password</label>
+                            <ValidationMessage For="@(() => loginModel.Password)" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <div class="form-check">
+                                <InputCheckbox id="inputRememberMe" class="form-check-input" @bind-Value="@loginModel.RememberMe" />
+                                <label class="form-check-label" for="inputRememberMe">Remember me</label>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                        </div>
+
+                        <label class="text-danger">@error</label>
+
+                        <NavLink href="register">
+                            <h6 class="font-weight-normal text-center">Create account</h6>
+                        </NavLink>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @code {
+    LoginModel loginModel = new LoginModel();
+    string error = String.Empty;
+    string from = String.Empty;
 
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string From 
+    {
+        get => from;
+        set
+        {
+            if (value != null)
+            {
+                from = value.ToLower();
+            }
+        }
+    }
+
+    void OnSubmit()
+    { }
 }
