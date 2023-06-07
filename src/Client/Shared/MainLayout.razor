@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using System.Security.Principal;
+@inherits LayoutComponentBase
 
 <div class="page">
     <AuthorizeView>
@@ -9,7 +10,8 @@
 
             <main>
                 <div class="top-row px-4">
-                    <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+                    <a href="/profile">@_userName</a>
+                    <a href="/logout">Logout</a>
                 </div>
 
                 <article class="content px-4">
@@ -22,3 +24,23 @@
         </NotAuthorized>
     </AuthorizeView>
 </div>
+
+@code {
+    private string _userName = default!;
+
+    [CascadingParameter]
+    Task<AuthenticationState>? AuthenticationStateTask { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (AuthenticationStateTask != null)
+        {
+            var authState = await AuthenticationStateTask;
+            var user = authState.User;
+            if (user.Identity is not null && user.Identity.IsAuthenticated)
+            {
+                _userName = user.Identity.Name ?? "User";
+            }
+        }
+    }
+}

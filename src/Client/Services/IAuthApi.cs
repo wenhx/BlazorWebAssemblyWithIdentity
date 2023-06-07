@@ -2,9 +2,9 @@
 
 namespace BlazorWebAssemblyWithIdentity.Client.Services;
 
-public interface IUserManagerApi
+public interface IAuthApi
 {
-    Task LoginAsync(LoginModel loginModel);
+    Task<InvokedResult<string>> LoginAsync(LoginModel loginModel);
     Task<InvokedResult> RegisterAsync(RegisterModel registerModel);
     Task LogoutAsync();
     Task<UserInfo> GetUserInfoAsync();

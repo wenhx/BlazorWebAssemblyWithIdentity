@@ -15,5 +15,15 @@ namespace BlazorWebAssemblyWithIdentity.Shared
             public const int MaximumPasswordLength = 20;
             public const int MinimumPasswordLength = 8;
         }
+
+        public class Auth
+        {
+            public static readonly string TokenLocalStorageKey = ".AuthToken";
+        }
+
+        public class Messages
+        {
+            public static readonly string ServerErrorMessage = "An error occurred on the server.";
+        }
     }
 }

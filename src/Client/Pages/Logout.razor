@@ -1,0 +1,21 @@
+﻿@page "/logout"
+@inherits CustomComponentBase
+@layout AuthLayout
+@inject IAuthService AuthService
+@inject NavigationManager NavigationManager
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+#if DEBUG       
+        var user = await GetCurrentUser();
+        if (user != null && user.IsAuthenticated)
+        {
+            Utility.ConsoleDebug($"{user.Name} is logging out.");
+        }
+#endif
+
+        await AuthService.LogoutAsync();
+        NavigationManager.NavigateTo("/login");
+    }
+}

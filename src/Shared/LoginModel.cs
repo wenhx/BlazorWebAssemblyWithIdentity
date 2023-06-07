@@ -18,6 +18,9 @@ namespace BlazorWebAssemblyWithIdentity.Shared
         [StringLength(MaximumPasswordLength, MinimumLength = MinimumPasswordLength)]
         public string Password { get; set; } = string.Empty;
 
+        /// <summary>
+        /// The RememberMe function is not yet implemented
+        /// </summary>
         public bool RememberMe { get; set; }
     }
 }

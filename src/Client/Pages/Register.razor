@@ -1,7 +1,7 @@
 ﻿@page "/register"
-@layout LoginLayout
-@inject IUserManagerApi userManager
-@inject NavigationManager navigationManager;
+@layout AuthLayout
+@inject IAuthService AuthService;
+@inject NavigationManager NavigationManager;
 
 <PageTitle>Register</PageTitle>
 
@@ -17,32 +17,32 @@
                     <h1 class="h2 text-center">Create Account</h1>
                 </div>
                 <div class="card-body">
-                    <EditForm class="form-signin" OnValidSubmit="OnSubmit" Model="registerModel">
+                    <EditForm class="form-signin" OnValidSubmit="OnSubmit" Model="_registerModel">
                         <DataAnnotationsValidator />
 
                         <div class="form-floating mb-3">
-                            <InputText id="inputUsername" class="form-control" @bind-Value="registerModel.UserName" autofocus placeholder="Username" />
+                            <InputText id="inputUsername" class="form-control" @bind-Value="_registerModel.UserName" autofocus placeholder="Username" />
                             <label for="inputUsername">User Name</label>
-                            <ValidationMessage For="@(() => registerModel.UserName)" />
+                            <ValidationMessage For="@(() => _registerModel.UserName)" />
                         </div>
 
                         <div class="form-floating mb-3">
-                            <InputText type="password" id="inputPassword" class="form-control" placeholder="Password" @bind-Value="registerModel.Password" />
+                            <InputText type="password" id="inputPassword" class="form-control" placeholder="Password" @bind-Value="_registerModel.Password" />
                             <label for="inputPassword">Password</label>
-                            <ValidationMessage For="@(() => registerModel.Password)" />
+                            <ValidationMessage For="@(() => _registerModel.Password)" />
                         </div>
 
                         <div class="form-floating mb-3">
-                            <InputText type="password" id="inputPasswordConfirm" class="form-control" placeholder="Password Confirmation" @bind-Value="registerModel.PasswordConfirm" />
+                            <InputText type="password" id="inputPasswordConfirm" class="form-control" placeholder="Password Confirmation" @bind-Value="_registerModel.PasswordConfirm" />
                             <label for="inputPasswordConfirm">Password Confirmation</label>
-                            <ValidationMessage For="@(() => registerModel.PasswordConfirm)" />
+                            <ValidationMessage For="@(() => _registerModel.PasswordConfirm)" />
                         </div>
 
                         <div class="d-grid gap-2">
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Create account</button>
                         </div>
 
-                        <label class="text-danger my-3">@error</label>
+                        <label class="text-danger my-3">@_error</label>
 
                         <NavLink href="login">
                             <h6 class="font-weight-normal text-center">Already have an account? Click here to login</h6>
@@ -56,27 +56,27 @@
 
 @code {
 
-    RegisterModel registerModel = new RegisterModel();
-    string error = String.Empty;
+    RegisterModel _registerModel = new RegisterModel();
+    string _error = String.Empty;
 
     async Task OnSubmit()
     {
-        error = String.Empty;
+        _error = String.Empty;
         try
         {
-            var result = await userManager.RegisterAsync(registerModel);
+            var result = await AuthService.RegisterAsync(_registerModel);
             if (result.Succeeded)
             {
-                navigationManager.NavigateTo("/login?from=register");
+                NavigationManager.NavigateTo("/login?from=register");
             }
             else
             {
-                error = String.Join("<br />", result.Errors);
+                _error = result.Message!;
             }
         }
         catch (Exception ex)
         {
-            error = ex.Message;
+            _error = ex.Message;
         }
     }
 }

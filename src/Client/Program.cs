@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using BlazorWebAssemblyWithIdentity.Client;
 using BlazorWebAssemblyWithIdentity.Client.Services;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -15,8 +16,10 @@ namespace BlazorWebAssemblyWithIdentity.Client
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
             builder.Services.AddAuthorizationCore();
+            builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
-            builder.Services.AddScoped<IUserManagerApi, UserManagerClient>();
+            builder.Services.AddScoped<IAuthApi, AuthApiClient>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             await builder.Build().RunAsync();
