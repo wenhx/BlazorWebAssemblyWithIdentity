@@ -21,6 +21,12 @@ namespace BlazorWebAssemblyWithIdentity.Shared
             public static readonly string TokenLocalStorageKey = ".AuthToken";
         }
 
+        public class RoleNames
+        {
+            public const string Admin = "Admin";
+            public const string User = "User";
+        }
+
         public class Messages
         {
             public static readonly string ServerErrorMessage = "An error occurred on the server.";
