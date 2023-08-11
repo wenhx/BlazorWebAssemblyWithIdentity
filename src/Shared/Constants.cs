@@ -14,6 +14,8 @@ namespace BlazorWebAssemblyWithIdentity.Shared
             public const int MinimumUserNameLength = 5;
             public const int MaximumPasswordLength = 20;
             public const int MinimumPasswordLength = 8;
+            public static readonly int MaxPage = 100;
+            public static readonly int MaxPageSize = 100;
         }
 
         public class Auth

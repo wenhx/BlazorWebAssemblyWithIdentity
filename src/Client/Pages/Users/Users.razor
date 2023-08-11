@@ -1,9 +1,40 @@
 ﻿@page "/users"
 @inherits CustomComponentBase
 @attribute [Authorize(Roles = Constants.RoleNames.Admin)]
+@inject IUserService UserService
 
 <h3>Users</h3>
 
-@code {
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in _users)
+        {
+            <tr>
+                <th scope="row">@_index</th>
+                <td>@user.Id</td>
+                <td>@user.Name</td>
+                <td>Edit</td>
+            </tr>
+            _index++;
+        }
+    </tbody>
+</table>
 
+@code {
+    List<UserInfo> _users = new List<UserInfo>();
+    int _page = 1;
+    int _pageSize = 10;
+    int _index = 1;
+    protected override async Task OnInitializedAsync()
+    {
+        _users.AddRange(await UserService.GetUsersAsync(_page, _pageSize));
+    }
 }

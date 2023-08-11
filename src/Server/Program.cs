@@ -60,8 +60,12 @@ public class Program
         var tokenKey = builder.Configuration.GetValue<string>("TokenKey");
         if (String.IsNullOrEmpty(tokenKey))
             throw new InvalidOperationException("The token wasn't found in the appsetting.json file.");
-        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -106,7 +110,6 @@ public class Program
         app.UseStaticFiles();
 
         app.UseRouting();
-
         app.UseAuthentication();
         app.UseAuthorization();
 
